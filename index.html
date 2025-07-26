@@ -5,160 +5,272 @@
   <title>Card Effect | Swiper</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1e1e1e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    video.bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: blur(8px) brightness(0.5);
+      animation: slowZoom 30s infinite alternate ease-in-out;
+    }
+
+    .info-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      width: 100%;
+      max-width: 1200px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+      background: url('https://tse3.mm.bing.net/th/id/OIP.aCIehHxttBIgB2UVAz1OMwHaI8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3') center/cover no-repeat;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 40px rgba(255, 105, 180, 0.3);
+      color: white;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease-out forwards;
+    }
+
+    .info-block img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      margin-right: 40px;
+    }
+
+    .info-text {
+      max-width: 700px;
+    }
+
+    .info-text h2 {
+      color: #ffd700;
+      margin-bottom: 15px;
+    }
+
+    .info-text p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #f1f1f1;
+    }
+
+    .info-text a {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #ff6a00, #ee0979);
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .wrapper {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px 50px;
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      max-width: 1200px;
+      width: 100%;
+      box-shadow: 0 0 40px rgba(255, 105, 180, 0.2);
+      flex-wrap: wrap;
+    }
+
+    .swiper {
+      width: 320px;
+      height: 320px;
+    }
+
+    .info-text pre {
+      font-size: 1rem;
+      color: #ddd;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .info-text .join-btn {
+      background: linear-gradient(to right, #c471ed, #f7797d);
+      border: none;
+      padding: 10px 25px;
+      font-size: 1rem;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .swiper-slide {
+      background: #000;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.4),
+                  0 0 35px rgba(255, 215, 0, 0.3);
+      transition: transform 0.4s;
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    .swiper-slide span {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .swiper-slide h3 {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 1rem;
+      color: white;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      padding: 10px 0;
+      border-radius: 0 0 20px 20px;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slowZoom {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.05); }
+    }
+
+    @media (max-width: 768px) {
+      .info-block {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .info-block img {
+        margin: 0 0 20px 0;
+      }
+
+      .wrapper {
+        flex-direction: column;
+        padding: 30px 20px;
+        gap: 30px;
+      }
+
+      .swiper {
+        width: 100%;
+        height: 300px;
+      }
+
+      .info-text pre {
+        font-size: 0.95rem;
+      }
+
+      .info-text h2 {
+        font-size: 1.5rem;
+      }
+
+      .info-text a {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
 </head>
-<body style="margin: 0; padding: 20px; font-family: 'Segoe UI', sans-serif; background-color: #1e1e1e; display: flex; flex-direction: column; align-items: center; min-height: 100vh; box-sizing: border-box;">
-  <!-- Background Video (blurred + zoomed) -->
-   <video autoplay muted loop playsinline style="
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover; 
-  z-index: -1;
-  filter: blur(8px) brightness(0.5);
-  animation: slowZoom 30s infinite alternate ease-in-out;
-">
-  <source src="https://videos.pexels.com/video-files/33113400/14114346_1920_1080_30fps.mp4" type="video/mp4" />
-</video>
+<body>
 
-  <!-- BRUTAL BABA Info Container (Animated + Visible) -->
-  <div style="
-    width: 100%;
-    max-width: 1200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-    border-radius: 20px;
-    margin-bottom: 30px;
-    background: url('https://tse3.mm.bing.net/th/id/OIP.aCIehHxttBIgB2UVAz1OMwHaI8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3') center/cover no-repeat;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 40px rgba(255, 105, 180, 0.3);
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 1s ease-out forwards;
-    animation-fill-mode: forwards;
-  ">
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="https://videos.pexels.com/video-files/33113400/14114346_1920_1080_30fps.mp4" type="video/mp4" />
+  </video>
 
-    <img src="https://images.genius.com/22942ba39c3f17d039ede67afe170d6e.640x640x1.jpg"
-      alt="Brutal Baba"
-      style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 5px solid rgba(255, 255, 255, 0.2); margin-right: 40px;"
-    />
-    <div style="color: white; max-width: 700px;">
-      <h2 style="color: #ffd700; margin-bottom: 15px;">BRUTAL BABA</h2>
-      <p style="font-size: 1rem; line-height: 1.6; color: #f1f1f1;">
-        BRUTAL BABA is an Indian rapper best known for his Rap and flawless Lyricism. He is the First Indian Rapper who wears a Self Designed White Mask.
-      </p>
-      <a href="https://linktr.ee/brutal.baba" target="_blank"
-        style="margin-top: 20px; display: inline-block; padding: 10px 20px; background: linear-gradient(to right, #ff6a00, #ee0979); color: white; border-radius: 10px; text-decoration: none; font-weight: bold;">
-        Visit Profile
-      </a>
+  <!-- BRUTAL BABA Info Block -->
+  <div class="info-block">
+    <img src="https://images.genius.com/22942ba39c3f17d039ede67afe170d6e.640x640x1.jpg" alt="Brutal Baba" />
+    <div class="info-text">
+      <h2>BRUTAL BABA</h2>
+      <p>BRUTAL BABA is an Indian rapper best known for his Rap and flawless Lyricism. He is the First Indian Rapper who wears a Self Designed White Mask.</p>
+      <a href="https://linktr.ee/brutal.baba" target="_blank">Visit Profile</a>
     </div>
   </div>
 
-  <!-- Swiper section remains unchanged -->
-   <div style="background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(15px); border-radius: 20px; padding: 40px 50px; display: flex; align-items: center; gap: 50px; max-width: 1200px; width: 100%; box-shadow: 0 0 40px rgba(255, 105, 180, 0.2);" class="wrapper">
-    
-    <div style="color: #fff; max-width: 400px;" class="info-text">
-      <h2 style="color: #ffd700; font-size: 2rem; margin-bottom: 20px;">BRUTAL GXNG</h2>
-      <pre style="font-size: 1rem; color: #ddd; line-height: 1.6; white-space: pre-wrap;">
+  <!-- Swiper Section -->
+  <div class="wrapper">
+    <div class="info-text">
+      <h2>BRUTAL GXNG</h2>
+      <pre>
 Get a chance to meet India's first masked rapper, Brutal Baba.
 Join Discord server and you may get a chance to meet him.
 Take a chance with your luck!
       </pre>
-      <a href="https://discord.gg/47cY5Sca" target="_blank" style="background: linear-gradient(to right, #c471ed, #f7797d); border: none; padding: 10px 25px; font-size: 1rem; color: white; border-radius: 10px; cursor: pointer; margin-top: 20px; display: inline-block; text-decoration: none;">Join</a>
+      <a href="https://discord.gg/47cY5Sca" target="_blank" class="join-btn">Join</a>
     </div>
 
-    <div class="swiper mySwiper" style="width: 320px; height: 320px;">
+    <div class="swiper mySwiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" style="background: #000; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 0 20px rgba(255, 105, 180, 0.4), 0 0 35px rgba(255, 215, 0, 0.3); transition: transform 0.4s;">
-          <img src="https://i.ytimg.com/vi/sbMAgCLhI_0/maxresdefault.jpg" alt="the blackout theory" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
-          <span class="rating" style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.6); color: #fff; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;">8.1</span>
-          <h3 style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 1rem; color: white; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); padding: 10px 0; border-radius: 0 0 20px 20px;">the blackout theory</h3>
+        <!-- Replace or add more swiper-slides here -->
+        <div class="swiper-slide">
+          <img src="https://i.ytimg.com/vi/sbMAgCLhI_0/maxresdefault.jpg" alt="the blackout theory">
+          <span>8.1</span>
+          <h3>the blackout theory</h3>
         </div>
 
-        <div class="swiper-slide" style="background: #000; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 0 20px rgba(255, 105, 180, 0.4), 0 0 35px rgba(255, 215, 0, 0.3); transition: transform 0.4s;">
-          <img src="https://i.scdn.co/image/ab67616d0000b2733af92b2fce58bb5f728d1d82" alt="night vision & broke boys" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
-          <span style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.6); color: #fff; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;">9.0</span>
-          <h3 style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 1rem; color: white; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); padding: 10px 0; border-radius: 0 0 20px 20px;">night vision & broke boys</h3>
+        <div class="swiper-slide">
+          <img src="https://i.scdn.co/image/ab67616d0000b2733af92b2fce58bb5f728d1d82" alt="night vision & broke boys">
+          <span>9.0</span>
+          <h3>night vision & broke boys</h3>
         </div>
 
-        <div class="swiper-slide" style="background: #000; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 0 20px rgba(255, 105, 180, 0.4), 0 0 35px rgba(255, 215, 0, 0.3); transition: transform 0.4s;">
-          <img src="https://t2.genius.com/unsafe/600x600/https://images.genius.com/7d8b42225f767822941f0eadf55dcaf7.1000x1000x1.png" alt="over the scale" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
-          <span style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.6); color: #fff; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;">9.5</span>
-          <h3 style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 1rem; color: white; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); padding: 10px 0; border-radius: 0 0 20px 20px;">over the scale</h3>
+        <div class="swiper-slide">
+          <img src="https://t2.genius.com/unsafe/600x600/https://images.genius.com/7d8b42225f767822941f0eadf55dcaf7.1000x1000x1.png" alt="over the scale">
+          <span>9.5</span>
+          <h3>over the scale</h3>
         </div>
-
-        <div class="swiper-slide" style="background: #000; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 0 20px rgba(255, 105, 180, 0.4), 0 0 35px rgba(255, 215, 0, 0.3); transition: transform 0.4s;">
-          <img src="https://ugc.production.linktr.ee/64158f31-773d-43b2-9606-11d057517a98_20231207-194523-0000.png" alt="lunar regrets" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
-          <span style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.6); color: #fff; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;">9.5</span>
-          <h3 style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 1rem; color: white; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); padding: 10px 0; border-radius: 0 0 20px 20px;">lunar regrets</h3>
-        </div>
-
-        <div class="swiper-slide" style="background: #000; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 0 20px rgba(255, 105, 180, 0.4), 0 0 35px rgba(255, 215, 0, 0.3); transition: transform 0.4s;">
-          <img src="https://s.mxmcdn.net/images-storage/albums5/2/2/7/8/5/6/69658722_500_500.jpg" alt="if she texts back" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
-          <span style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.6); color: #fff; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;">9.5</span>
-          <h3 style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 1rem; color: white; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); padding: 10px 0; border-radius: 0 0 20px 20px;">if she texts back</h3>
-        </div>
-
-        <div class="swiper-slide" style="background: #000; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 0 20px rgba(255, 105, 180, 0.4), 0 0 35px rgba(255, 215, 0, 0.3); transition: transform 0.4s;">
-          <img src="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/88/0e/51/880e5142-72bc-81ce-5316-b981b8055c1a/2784a9f8-49fb-4569-86bf-cfeb8fe75943.jpg/1200x1200bf-60.jpg" alt="saturn was behind" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
-          <span style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.6); color: #fff; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;">9.5</span>
-          <h3 style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 1rem; color: white; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); padding: 10px 0; border-radius: 0 0 20px 20px;">saturn was behind</h3>
-        </div>
-
-        <div class="swiper-slide" style="background: #000; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 0 20px rgba(255, 105, 180, 0.4), 0 0 35px rgba(255, 215, 0, 0.3); transition: transform 0.4s;">
-          <img src="https://t2.genius.com/unsafe/600x600/https://images.genius.com/4f7c767b7f7a63c1c07321960b703b8b.1000x1000x1.png" alt="not meant for you" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
-          <span style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.6); color: #fff; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;">9.5</span>
-          <h3 style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 1rem; color: white; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); padding: 10px 0; border-radius: 0 0 20px 20px;">not meant for you</h3>
-        </div>
-
-        <div class="swiper-slide" style="background: #000; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 0 20px rgba(255, 105, 180, 0.4), 0 0 35px rgba(255, 215, 0, 0.3); transition: transform 0.4s;">
-          <img src="https://tse1.mm.bing.net/th/id/OIP.cn4kj6XBUt_-RtEI6XX--QHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Fish Dash" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
-          <span style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.6); color: #fff; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;">9.5</span>
-          <h3 style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 1rem; color: white; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); padding: 10px 0; border-radius: 0 0 20px 20px;">Fish Dash</h3>
-        </div>
-
-        <div class="swiper-slide" style="background: #000; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 0 20px rgba(255, 105, 180, 0.4), 0 0 35px rgba(255, 215, 0, 0.3); transition: transform 0.4s;">
-          <img src="https://i.ytimg.com/vi/YqEiPkUS-hw/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGQgZChkMA8=&rs=AOn4CLAhJGGJhf_oC2GXOlcQLcqbAQnCqQ" alt="street seven solicitude" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
-          <span style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.6); color: #fff; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;">9.5</span>
-          <h3 style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 1rem; color: white; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); padding: 10px 0; border-radius: 0 0 20px 20px;">street seven solicitude</h3>
-        </div>
-
-        <div class="swiper-slide" style="background: #000; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 0 20px rgba(255, 105, 180, 0.4), 0 0 35px rgba(255, 215, 0, 0.3); transition: transform 0.4s;">
-          <img src="Images/WhatsApp Image 2025-07-26 at 19.51.26_dab828c1.jpg" alt="abduction from nebula" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
-          <span style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.6); color: #fff; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;">9.5</span>
-          <h3 style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 1rem; color: white; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); padding: 10px 0; border-radius: 0 0 20px 20px;">abduction from nebula</h3>
-        </div>
+        <!-- Add more swiper slides here -->
       </div>
     </div>
-  </div>
-  <!-- Main Card Swiper Wrapper -->
-  <div style="background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(15px); border-radius: 20px; padding: 40px 50px; display: flex; align-items: center; gap: 50px; max-width: 1200px; width: 100%; box-shadow: 0 0 40px rgba(255, 105, 180, 0.2);" class="wrapper">
   </div>
 
   <!-- Swiper Script -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script>
-    // Add fadeInUp keyframe animation via JavaScript since <style> tag is removed
-    const style = document.createElement("style");
-style.textContent = `
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slowZoom {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.05); }
-  }
-`;
-
-    document.head.appendChild(style);
-
     var swiper = new Swiper(".mySwiper", {
       effect: "cards",
       grabCursor: true,
